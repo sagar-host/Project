@@ -1,13 +1,24 @@
-function Students(props){
-console.log(props);
-    return(
-        <div style={{backgroundColor: "skyBlue", margin: "10px"}}>
-            <h1>Student component</h1>
-            <h2>Hello {props.name}</h2>
-            {/* <h3>Email: {props.email} </h3>
-            <h4>Address: {props.other.address}</h4>
-            <h5>Mobile: {props.other.mobile}</h5> */}
-        </div>
-    )
-}
+import React, {Component} from "react";
+
+
+
+class  Students extends Component{
+
+
+    render(){
+        console.log(this.props)
+
+        return(
+            <div style={{backgroundColor: "pink",margin:"50px"}}>
+                <h1>Student component {this.props.name} </h1>
+                <h3>{this.props.mobile}</h3>
+                     {/* can we change props from where we recive props ? like we make props in app.js and recive on students.js?
+       no we cant change props from where we recieve props */}
+           
+            </div>
+        )
+  
+            }
+  }
+
 export default Students;
