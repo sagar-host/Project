@@ -1,40 +1,33 @@
-import React,{useState} from "react"
+import React,{Component} from "react"
 import './App.css';
 
 
-function App() {
-  // let data = "sagar"
-  // function updateData(){
-  //      data="peter"
-  //      alert(data)
-  // }
-  // console.log("_____________________");\
-
-const [data, setData]=useState(4)
-console.log(data);
-function updateData(){
-  setData(data/2);
+class  App extends Component {
+  //define state= so first make constructor
+    
+constructor(){
+  super();
+  this.state={
+    data:0
+  }
 }
-console.log("this is re render again when button clicked and state changes again__________________________________________________");
-// watch this log on console = it will update or re render again when we click on button
-  return (
-    <div className="App">
-     <h1>State {data}</h1>
-     <button onClick={updateData}>Update Data</button>
-
-
-{/* useState IS a hook and it allows us to maintain state , update state= we can use this hook by destructure and define by variables*/}
-    {/* <div className="App">
-     <h1>State {data}</h1>
-     <button onClick={updateData}>Update Data</button> */}
-     {/* in state , component will re render again , or update , and it is for state only not for variables,and variable cant changes the state because it cant re rendered again , it stay in freeze */}
-     {/* react not working this style , to  change data = props and state in react = it does not understand variable , it only understand state and props*/}
-     {/* state is an object = in variable we can store data ..same as in state we can store data and print on when called
-     state only use in react */}
-
+apple(){
+  this.setState({data: this.state.data+1})
+}
+//state is a data container like we use variables(let,var,const) in which we can store information(name,email,array,objects etc) same as state is also container and we can store any data in it
+//diff between state and variables- when we update variable , the component cant update itself and cant re rendered itself and when we update state ,componenent will re render itself, and react understand that something is updated and it re render the new thing which is updated
+ //we dont need
+ //what if we use state outside a component? we can do this but it is not recommended= state is public or private? it is public
+render(){
+    return (
+      <div className="App">
+       <h1>State in Class Component {this.state.data}</h1>
+      <button onClick={()=>this.apple()}>Update Data</button>
+    
+      </div>
+    );
+  }
   
-    </div>
-  );
 }
 
 
