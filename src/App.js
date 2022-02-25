@@ -1,32 +1,31 @@
-import React,{Component} from "react"
 import './App.css';
+import React,{useState} from "react"
+import Students from "./Students"
 
+function App() {
 
-class  App extends Component {
-  //define state= so first make constructor
-    
-constructor(){
-  super();
-  this.state={
-    data:0
-  }
-}
-apple(){
-  this.setState({data: this.state.data+1})
-}
-//state is a data container like we use variables(let,var,const) in which we can store information(name,email,array,objects etc) same as state is also container and we can store any data in it
-//diff between state and variables- when we update variable , the component cant update itself and cant re rendered itself and when we update state ,componenent will re render itself, and react understand that something is updated and it re render the new thing which is updated
- //we dont need
- //what if we use state outside a component? we can do this but it is not recommended= state is public or private? it is public
-render(){
+  const [name, setName] = useState("sagar")
+
+//like we make function = with the help of parameter we pass data in function ,
+//same as for prop = we make component and want to  pass data = so, we can do that with the help of props  = props(properties) is like parameter but it is not parameter
+
     return (
       <div className="App">
-       <h1>State in Class Component {this.state.data}</h1>
-      <button onClick={()=>this.apple()}>Update Data</button>
-    
+       <h1>Props with functional component</h1>
+
+       <Students name={name} />
+        {/* we want to change name sagar to desixxx when button clicked */}
+        <button onClick={()=>{setName("desixxx")}}>updateName</button>
+        {/* this way we can change values or name dynamically  */}
+        {/* we cant use useState in class components because it uses constructor and super method  */}
+        {/* what if we pass a function from props ?if yes how */}
+
+         {/* <Students name="sagar"  email="rebelsagarx@gmail.com" other={{address:"delhi",mobile:"oneplus"}}/> */}
+         {/* <Students name="peter"  email="peterstalion@gmail.com" other={{address:"russia",mobile:"nokia"}}/>
+         <Students name="preeti"  email="pretti@gmail.com" other={{address:"banglore",mobile:"micromax"}}/> */}
       </div>
     );
-  }
+
   
 }
 
