@@ -1,6 +1,6 @@
 import './App.css';
 import React, { Component, useState } from "react"
-
+import Student  from './Student';
 
 
 class App extends Component{
@@ -9,24 +9,25 @@ class App extends Component{
     super();
     console.log("constructor");
     this.state={
-      count:0
+     show: true
     }
   }
 
-shouldComponentUpdate(){
-  console.log('shouldcomponentuupdate', this.state.count);
-if (this.state.count>5 && this.state.count<10){
-return true
-}
-}
 
 render(){
   console.log("render");
   return (
     <div className="App">
-    <h1>shouldComponentupdate, life cycle method {this.state.count}</h1>
-       <p>it can stop component from updating, it stops rendering</p>
-       <button onClick={()=>{this.setState({count: this.state.count+1})}}>update count</button>
+    {
+      this.state.show ?  <Student/>: <h1>child component removed</h1>
+    }
+   {/* not operator= use for toggle */}
+   {/* jaise he child component remove hoga toh ComponentWillUnmount automatic call hoga */}
+    {/* <h1>ComponentWillUnmount, life cycle method   </h1> */}
+      {/* <p>when component will remove from then ComponentWillUnmount method will call, when we hide/show ,hide something then that will completely remove from dom</p> */}
+     
+      <button onClick={()=>{this.setState({show:!this.state.show}) 
+      console.log("deleting")}}>Toogle child component</button>
     </div>
   )
 
