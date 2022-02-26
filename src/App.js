@@ -1,32 +1,33 @@
 import './App.css';
 import React, { Component, useState } from "react"
-// import User from "./User"
+
 
 
 class App extends Component{
 
   constructor(){
     super();
-    // console.log("constructor");
+    console.log("constructor");
     this.state={
-      name:"sagar"
+      count:0
     }
   }
 
-componentDidMount(){
-console.log("mount");
+componentDidUpdate(prevProps,prevState,snapshot){
+console.log("update", prevState.count,this.state.count);
+if(this.state.count<10){
+  this.setState({count:this.state.count+1})
+}
 }
 
 render(){
   console.log("render");
   return (
     <div className="App">
-    <h1>{this.state.name}</h1>
-     {/* <h1>componentDidMount, life cycle method</h1>
-     <p>mount means when html css and dom all thing is ready then this fun call, it uses when we call api's,operations or any other method that depend on html </p>
-    <p>no effect on state and props</p> */}
-    <p>hum api call only call karenge jab page load hoga , bar bar api thoda na call karenge tabhi hum did mount use krte hai jo ki sirf ek he bar call hota hai jb page load hota hai only , tabhi props , state ka koi effect nhi pdta iske upar</p>
-    <button onClick={()=>this.setState({name: "cccccc"})}>update name</button>
+    <h1>componentDidUpdate, life cycle method {this.state.count}</h1>
+     <p>it runs only when something update = state or props update , we should not update state directly in this,we use condition to update state inside the condition, if we cant use condition and directly use state inside then error will occur or may be infinete loop happen</p>
+    <button onClick={()=>{this.setState({count:1})}}>update</button>
+    we cant pass state in render because render call everytime when state change
     </div>
   )
 
