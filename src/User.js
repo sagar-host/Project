@@ -1,13 +1,22 @@
-function User(props){
-    const data ={name:"sagar",contact:"rebel house",email:"mail@.com"}
+import React,{PureComponent} from "react";
 
-    return(
-    <div>
-        <h2>user component</h2>
-        <h3>user name: </h3>
-        <button onClick={()=>props.alert(data)}>click me</button>
-    </div>
-      
-    )
+ class User extends PureComponent{
+ 
+
+  render(){
+console.log("user component check re rendring");
+    return (
+      <div className="App">
+      <h1>user Component {this.props.count}</h1>
+    
+     
+         </div>
+        
+       );
+
+  }
+ 
+
 }
-export default User
+
+export default User;
