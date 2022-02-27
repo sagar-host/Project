@@ -1,32 +1,38 @@
 import "./App.css";
-import React, { useState,useMemo } from "react";
+import React,{createRef} from "react";
 
-function App  (){
+class App extends React.Component{
+
+  constructor(){
+    super();
+    this.inputRef=createRef();
+
+  }
+   componentDidMount(){
+    //  console.log(this.inputRef.current.value="1000");
+   }
+   getVal(){
+   console.log(this.inputRef.current.value);
+   this.inputRef.current.style.color = "red"
+   this.inputRef.current.style.backgroundColor = "black"
+
+   }
+    render(){
+      return (
+        <div className="App">
+           <h1>Ref in React js</h1>
+           <p>we can manipulate any element in dom by forecfully </p>
+           <input type="text"  ref={this.inputRef}/>
+           <button onClick={()=>this.getVal()}>check ref</button>
+         
+          
+       
+           </div>
+          
+         );
+
+    }
    
-const [count , setCount] = useState(0);
-const [item , setItem] = useState(10)
-
-const multiCountMemo = useMemo(function multiCount(){
-  console.log("multicount fun callling");
-  // this function calls even when set item button press , but multicount value not changing , so it create problems on performance
-  return count*5
-}, [count])
- 
-
-    return (
-      <div className="App">
-         <h1>Use Memo Hook in functional component</h1>
-         <h2>count: {count}</h2>
-         <h2>item: {item}</h2>
-         <h2>multiCount function : {multiCountMemo}</h2>
-
-         <button onClick={()=>setCount(count+1)}>update count</button>
-         <button onClick={()=>setItem(item*10)}>update item</button>
-
-     
-         </div>
-        
-       );
 
 
  
