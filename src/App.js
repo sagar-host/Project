@@ -1,41 +1,18 @@
-import './App.css';
-import React, { useEffect,useState} from "react"
-import User from "./User"
+import "./App.css";
+import React from "react";
+import "./style.css";
+import style from "./custom.module.css"
 
-
-function App (){
- //how to use use effect through props , and for diffrent state
-
-  const [data , setData] = useState(10)
-  const [count, setCount] = useState(100)
-
-  //we want that this useeffect can only run for data
-
-// useEffect(()=>{
-//   console.log("called with data state");
-// }, [data])
-  
-//we want that this useeffect can only run for count
-
-// useEffect(()=>{
-//   console.log("called with count state is " + count);
-// }, [count])
-
-
+function App() {
   return (
     <div className="App">
-    {/* <h1>count: {count}</h1>
-    <h1>data: {data}</h1> */}
-    <User count={count} data={data}/>
-    <button onClick={()=>setCount(count+1)}>update counter</button>
-    <button onClick={()=>setData(data+1)}>update data</button>
-
-        <p>Use effect hook with specific state and props </p>
+      <h1 className="primary"> Style from css</h1>
+      <p>Style type in reactjs </p>
+      <h1 style={{color:"red",backgroundColor:"gray"}}>style in inline</h1>
+      <h1 className={style.success}>modular css or custom css component</h1>
+      <h1>styled component = external library</h1>
     </div>
-  )
-
-
-
+  );
 }
 
 export default App;
