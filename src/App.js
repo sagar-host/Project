@@ -1,37 +1,34 @@
 import "./App.css";
-import React from "react";
-import User from "./User"
+import React, { useState,useMemo } from "react";
 
- class App extends React.Component{
-   constructor(){
-     super();
-     this.state={
-       count:1
-     }
-   }
+function App  (){
+   
+const [count , setCount] = useState(0);
+const [item , setItem] = useState(10)
 
-  render(){
-// console.log("parent check re rendring");
+const multiCountMemo = useMemo(function multiCount(){
+  console.log("multicount fun callling");
+  // this function calls even when set item button press , but multicount value not changing , so it create problems on performance
+  return count*5
+}, [count])
+ 
+
     return (
       <div className="App">
-      {/* <h1>Pure Component {this.state.count}</h1> */}
-          {/* <p>pure component is a feature in react , we just import it and use it in react</p> */}
-          {/* <p>this feature only works in class component, for functional we use memo</p> */}
-          {/* <p>it stops re rendring , to execute again and again</p> */}
-          {/* <p>eg- we make state of name , we make button , when button click pure component check if previus clicked name is same as now clicked , if same then it stop this for rendring</p> */}
-           {/* state is same but its re render again and again on click, it is problem , so we are using pure component */}
-       {/* it checks the state if state is same again on click button then it will not re render again */}
-       {/* but how to check on props also? */}
+         <h1>Use Memo Hook in functional component</h1>
+         <h2>count: {count}</h2>
+         <h2>item: {item}</h2>
+         <h2>multiCount function : {multiCountMemo}</h2>
 
-            <User count={this.state.count}/>
+         <button onClick={()=>setCount(count+1)}>update count</button>
+         <button onClick={()=>setItem(item*10)}>update item</button>
 
-        <button onClick={()=>this.setState({count:this.state.count+1})}>update count</button>
      
          </div>
         
        );
 
-  }
+
  
 
 }
