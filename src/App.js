@@ -1,28 +1,23 @@
 import "./App.css";
 import React from "react";
 // import { NavItem, Table } from "react-bootstrap";
-import Cols from "./Cols"
+import User from "./User"
 
 function App() {
+
+  function parentAlert(data){
+    alert(data.name)
+    console.log(data);
+  }
  
   return (
- <div>
-      <h1>React Fragments</h1>
+ <div className="App">
+      {/* <h1>Send Data child to parent component: in react js it is called "lifting state up"</h1> */}
+         {/* send data from parent and from child to parent */}
+         {/* we can use fragment anywhere, we cant take class in fragement but we can take key  */}
 
-    {/* it is a pattern to handle multiple component or multiple elements. it is use as wrapper
-    elements= h1,p,button etc
-    components = file = user.js, students.js 
-    for removing extra div element in dom  or we can use in replace of fragment tag as <></> to wrap jsx*/}
-          <table>
-            <tbody>
-              <tr>
-              
-              <Cols />
-              </tr>
-            </tbody>
-          </table>
-        
-      
+         <h2><User alert={parentAlert}/></h2>
+
 
     </div>
    
