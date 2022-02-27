@@ -26,6 +26,8 @@ const users = [
         <Table striped bordered hover size="sm" variant="dark">
         <tbody>
         <tr>
+
+                <td>Id</td>
                 <td>Name</td>
                 <td>Email</td>
                 <td>Contact</td>
@@ -35,6 +37,7 @@ const users = [
           {
             users.map((item, i)=>
               item.contact === 111 ? <tr key={i}>
+              <td>{i}</td>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
                 <td>{item.contact}</td>
