@@ -1,16 +1,20 @@
 import "./App.css";
 import React from "react";
-import "./style.css";
-import style from "./custom.module.css"
+import {Button,Alert} from 'react-bootstrap'
+
 
 function App() {
   return (
     <div className="App">
-      <h1 className="primary"> Style from css</h1>
-      <p>Style type in reactjs </p>
-      <h1 style={{color:"red",backgroundColor:"gray"}}>style in inline</h1>
-      <h1 className={style.success}>modular css or custom css component</h1>
-      <h1>styled component = external library</h1>
+      <h1> Style by bootstrap</h1>
+ <Button onClick={()=>alert("hello")}>Click me</Button>
+
+
+ {
+  <Alert variant="info">
+    This is a warning alert—check it out!
+  </Alert>
+}
     </div>
   );
 }
