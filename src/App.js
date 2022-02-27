@@ -1,41 +1,30 @@
 import "./App.css";
-import React,{createRef} from "react";
+import React,{useRef} from "react";
 
-class App extends React.Component{
+function App  (){
+     
+  let inputRef = useRef(null)
 
-  constructor(){
-    super();
-    this.inputRef=createRef();
-
+  function handleInput(){
+console.log("calling");
+// inputRef.current.value = "1000"
+// inputRef.current.focus()
+// inputRef.current.style.color ="gold"
+inputRef.current.style.display= "none"
   }
-   componentDidMount(){
-    //  console.log(this.inputRef.current.value="1000");
-   }
-   getVal(){
-   console.log(this.inputRef.current.value);
-   this.inputRef.current.style.color = "red"
-   this.inputRef.current.style.backgroundColor = "black"
-
-   }
-    render(){
       return (
         <div className="App">
-           <h1>Ref in React js</h1>
-           <p>we can manipulate any element in dom by forecfully </p>
-           <input type="text"  ref={this.inputRef}/>
-           <button onClick={()=>this.getVal()}>check ref</button>
-         
+           <h1>Ref in functional component- it is a hook</h1>
+           <p>it is only use for emergency where props and state not work</p>
+            <input type="text" ref={inputRef} />
+            <button onClick={handleInput}>ref</button>
           
        
            </div>
           
          );
 
-    }
-   
 
-
- 
 
 }
 
