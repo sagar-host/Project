@@ -1,51 +1,101 @@
 import "./App.css";
 import React from "react";
-import {Table} from "react-bootstrap"
-
-
+import { Table } from "react-bootstrap";
 
 function App() {
+  const users = [
+    {
+      name: "sagar",
+      email: "rebelsagarx@mail.com",
+      address: [
+        { HN: "10", city: "noida", country: "india" },
+        { HN: "11", city: "delhi", country: "india" },
+        { HN: "177", city: "gurgaon", country: "india" },
+        { HN: "58", city: "cochin", country: "india" },
+      ],
+    },
 
-const users = [
-{name:"sagar" , email:"rebelsagarx@mail.com", contact:111},
-{name:"peter" , email:"peter@mail.com", contact:786},
-{name:"pinky" , email:"pinky@mail.com", contact:111},
-{name:"zukerberg" , email:"zukerberg@mail.com", contact:111}
-
-
-]
-
-
-
+    {
+      name: "peter",
+      email: "peter@mail.com",
+      address: [
+        { HN: "10", city: "noida", country: "india" },
+        { HN: "11", city: "delhi", country: "india" },
+        { HN: "177", city: "gurgaon", country: "india" },
+        { HN: "58", city: "cochin", country: "india" },
+      ],
+    },
+    {
+      name: "pinky",
+      email: "pinky@mail.com",
+      address: [
+        { HN: "10", city: "noida", country: "india" },
+        { HN: "11", city: "delhi", country: "india" },
+        { HN: "177", city: "gurgaon", country: "india" },
+        { HN: "58", city: "cochin", country: "india" },
+      ],
+    },
+    {
+      name: "zukerberg",
+      email: "zukerberg@mail.com",
+      address: [
+        { HN: "10", city: "noida", country: "india" },
+        { HN: "11", city: "delhi", country: "india" },
+        { HN: "177", city: "gurgaon", country: "india" },
+        { HN: "58", city: "cochin", country: "india" },
+      ],
+    },
+  ];
 
   return (
     <div className="App">
-    {/* //unique key prop  actually need a unique key to identify a particular item otherwise its virtual dom not work properly*/}
-      {/* how to show conditionally in table?only show contact who 111 only  = iss tarah filter apply kr skte hai */}
-        <h1>List with Bootstrap and Uniue Key</h1>
-        <Table striped bordered hover size="sm" variant="dark">
+      <h1>Nest List with Nested Array</h1>
+      {/* <p>
+        ek list ke andar ek nested list and ek array ke andar ek nested array
+      </p> */}
+      <p>for address we again implement loop because it again nested object inside array</p>
+      <Table striped variant="dark">
         <tbody>
         <tr>
+           <td>S.no</td>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Address</td>
+          </tr>
+      
+        {
+          users.map((item,i)=>
+            <tr key={i}>
+            <td>{i+1}</td>
+          <td>{item.name}</td>
+          <td>{item.email}</td>
+          <td>
+            <Table variant="dark">
+            <tbody>
+            <tr>
+            <td>S.no</td>
+          <td>House no.</td>
+          <td>City</td>
+          <td>Country</td>
+          </tr>
+                {
+                  item.address.map((data,i)=>
+             <tr key={i}>
+             <td>{i+1}</td>
+          <td>{data.HN}</td>
+          <td>{data.city}</td>
+          <td>{data.country}</td>
+          </tr>
+                )}
+              </tbody>
+            </Table>
+          </td>
+          </tr>
+          )
+        }
+        </tbody>
+      </Table>
 
-                <td>Id</td>
-                <td>Name</td>
-                <td>Email</td>
-                <td>Contact</td>
-              </tr>
-
-
-          {
-            users.map((item, i)=>
-              item.contact === 111 ? <tr key={i}>
-              <td>{i}</td>
-                <td>{item.name}</td>
-                <td>{item.email}</td>
-                <td>{item.contact}</td>
-              </tr> :null
-           )
-          }
-          </tbody>
-          </Table>
 
     </div>
   );
