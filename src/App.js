@@ -1,44 +1,45 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter as Router,Link ,Route,Switch} from "react-router-dom";
 
 function App() {
-
   return (
     <div className="App">
-      <h1>HOC-high order component </h1>
-         {/* <p>ek component jo dusra component ko as a prop leta ho or ek alag se component return krta ho</p>
-         <p>ek single component hoga jo component he as a input lega or component he as a output dega</p> */}
-        {/* <Counter/>
-        <Counter/> */}
+      <Router>
+      <Link to="/home">Home Page</Link>
+      <Link to="/about">About Page</Link>
+    
+   <Switch>
+   <Route path="/home"> <Home /></Route>
+      <Route path="/about"> <About /></Route>
+   </Switch>
 
-        <HOCRed cmp={Counter}/>
-        <HOCGreen cmp={Counter}/>
-        <HOCBlue cmp={Counter}/>
+  
+ 
 
-
+   
+       
+      </Router>
     </div>
   );
 }
 
-function HOCRed(props){
-  return <h2 style={{backgroundColor:"red", width:"100px"}}>red<props.cmp/></h2>
-}
-function HOCGreen(props){
-  return <h2 style={{backgroundColor:"green", width:"100px"}}>green<props.cmp/></h2>
-}
-function HOCBlue(props){
-  return <h2 style={{backgroundColor:"blue", width:"100px"}}>blue<props.cmp/></h2>
-}
-
-function Counter(){
-  //agar hume counter har ek counter ka color differnt chiyea toh uske liye hum component banayenge jo wrappeer ka kam karega
-  const [count, setCount] = useState(0)
-  return(
+function Home() {
+  return (
     <div>
-      <h3>{count}</h3>
-      <button onClick={()=>setCount(count+1)}>update</button>
+      {/* <h1>Routing setup </h1> */}
+      <h1>Home Page</h1>
+      <p>This is a Home Page</p>
     </div>
-  )
+  );
+}
+function About() {
+  return (
+    <div>
+      <h1>About Page</h1>
+      <p>This is a About Page</p>
+    </div>
+  );
 }
 
 export default App;
