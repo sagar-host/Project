@@ -1,41 +1,44 @@
 import "./App.css";
-import React, { useRef} from "react";
+import React, { useState } from "react";
 
 function App() {
-  let inputRef = useRef(null);
-  let inputRef2 = useRef(null);
 
-  function submitForm(e){
-   //form ko submit karne ke liye by default parameter hota hai jisko event khete hai , 
-   e.preventDefault();
-   console.log("input field 1 value controlled by ref", inputRef.current.value);
-   console.log("input field 2 value controlled by ref", inputRef2.current.value);
-   let input3 = document.getElementById("input3").value 
-
-   console.log("input field 3 value controlled by ref", input3);
-
-  }
   return (
     <div className="App">
-      <h1>UnControlled components in Reactjs</h1>
-      {/* <p>it is related to input field or in form there are 3-4 input fields </p>
-                  <p>react ke andar jab hum input fields ko directly state ke through control nhi krte hai to unko khete hai UnControlled component</p>
-                  <p>uncontrolled component wo hote hai jo ki directly dom ke through handle hote hai jaise ki jQuery or dom manipulation in javascript or Ref ke through control ho rhi hongi</p>
-                 <p>value ko handle kese karnge?</p>
-        
-            */}
+      <h1>HOC-high order component </h1>
+         {/* <p>ek component jo dusra component ko as a prop leta ho or ek alag se component return krta ho</p>
+         <p>ek single component hoga jo component he as a input lega or component he as a output dega</p> */}
+        {/* <Counter/>
+        <Counter/> */}
 
-      <form onSubmit={submitForm}>
-        <input ref={inputRef} type="text" />
-        <br />
-        <br />
-        <input  ref={inputRef2} type="text" /> <br />
-        <br />
-        <input id="input3" type="text" />
-        <button type="submit">Submit</button>
-      </form>
+        <HOCRed cmp={Counter}/>
+        <HOCGreen cmp={Counter}/>
+        <HOCBlue cmp={Counter}/>
+
+
     </div>
   );
+}
+
+function HOCRed(props){
+  return <h2 style={{backgroundColor:"red", width:"100px"}}>red<props.cmp/></h2>
+}
+function HOCGreen(props){
+  return <h2 style={{backgroundColor:"green", width:"100px"}}>green<props.cmp/></h2>
+}
+function HOCBlue(props){
+  return <h2 style={{backgroundColor:"blue", width:"100px"}}>blue<props.cmp/></h2>
+}
+
+function Counter(){
+  //agar hume counter har ek counter ka color differnt chiyea toh uske liye hum component banayenge jo wrappeer ka kam karega
+  const [count, setCount] = useState(0)
+  return(
+    <div>
+      <h3>{count}</h3>
+      <button onClick={()=>setCount(count+1)}>update</button>
+    </div>
+  )
 }
 
 export default App;
