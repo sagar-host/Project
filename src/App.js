@@ -1,141 +1,58 @@
   import "./App.css";
-  import React,{useEffect, useState} from "react";
-  import { Table } from 'react-bootstrap';
+  import React,{ useState} from "react";
   
   function App() {
-  
-  const [users, setUser]=useState([])
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [mobile, setMobile] = useState("")
-  const [userId, setUserId]  = useState(null)
-  // baki jagaha mai bhi hum id lga denge
 
+  const [count, setCount] = useState(1)
 
-  
-  useEffect(()=>{
-    getList()
-  },[])
-  // console.log(users);
+  function updateCounter(){
+    //isme hum random value lenge
+    // setCount(count+1)
+    //ab mai chata hun ki mere previous value or current value ke andar mughe difference pata chale
+    //previous value kese milegi= previous value mai rakh nhi sakta kyunki agar m ek variable m rakhta hun toh jaise he mai state update karunga toh variable phir se update kar jayega pechli wali value toh mai kisi bhi tarah rakh he nhi sakta but react ne iska khud se he ek tarika diya hua hai ,bhaut he easy solution diya hua hai 
+    // setCount(Math.floor(Math.random()*10))
+    // let rand = Math.floor(Math.random()*10)
+    //toh mughe previous state ke liye yha rand direct use nhi karna ..isko hatha ke ye apne ap mai call back function bhi rwkhta hai
+   //iske andar isko previous value milege, aga mai isko parameter de dun pre ,
+   //consle mai previous value mil jayegi and page mai current value
+   //ab mai difference find kr skta hun
+//     setCount((pre)=>{
+//       console.log(pre);
+// if(pre<5){
+//   alert("low value")
+// }
 
-  function getList(){
-    fetch("http://localhost:8000/users").then((result)=>{
-      result.json().then((resp)=>{
-        // console.log("response",resp);
-        setUser(resp)
-        // jaise he hamari users api call ho jati hai toh iske sath he mai us form ke value fir se submit karna chahunga
-     //setName ko call karenge , isme apko zeroth array hoga usko data leke ana hai resp kai
-       //zeroth array he kyun?
-     setName(resp[0].name)
-        setEmail(resp[0].email)
-        setMobile(resp[0].mobile)
-        setUserId(resp[0].id)
-      })
-    })
-  }
+//    return rand
+//     })
 
-  function deleteUser(id){
-    fetch(`http://localhost:8000/users/${id}`,{
-      method: 'DELETE'
-    }).then((result)=>{
-        result.json().then((resp)=>{
-          // console.log(resp);
-          //jab humara result sucess aa jayega toh ek bar phir iss fun ko call kar denge
-          getList();
-        })
-    })
-  }
-//for page not to refresh when delete button click - so we have to put the api in a function - getList and also call that function from use effect(ye to stating mai humari list lati hai ,wo ye kam karegi)
-  
-function selectUser(id){
-  //array mai -1 karenge kyunki array zero se start hota hai or humari id 1 se start hoti hai
-  //ab hume input wala data table mai fill karwana hai jab update kare
-  //jo upar state hai wo yha pe bhi set karni hai,ab humare pass kya data ana chiyea ,jo apka users wala data hoga wo wala -1 karke 
-  console.log(users[id-1]);
+// setCount(count+5)
+//har bar 5 increase hoga lekin humare pass ek for loop hai
+//for loop 1 ke sath increase kyu ho rha hai= jb tak ye count ke value increase hoti ha pechle wali uss se phele loop chal jata hai...toh ek he value milti hai jo current value hai, or uske bad ye har bar mai kya karega ki ye +1 he krta hai ..ye 5 bar chlme tk usko ye async value hai wo mil he nhi pati- last wali value ..uss se phele he loop chl jata hai async hone ki waja se ...
+//toh iske liye bhi app usse tarah se use kr skte call back function
+for(let i=0;i<5;i++){
+  // setCount(count+1)
+  setCount((prev)=>{ 
+    console.log(prev)
+
+    return prev+1
+  })
  
- 
-  // setName(users[id-1].name)
-  // setEmail(users[id-1].email)
-  // setMobile(users[id-1].mobile)
-  //toh hum data kha se leke ayenge = users ke behalf se leker ayaenge data
-  //upar wale code ko simplified karne ke liye ap isko var mai store kr skte hai
-  let item = users[id-1]
-    setName(item.name)
-  setEmail(item.email)
-  setMobile(item.mobile)
-  setUserId(item.id)
-
 
 }
 
-function updateUser(){
-  // console.log(name,email,mobile,userId);
-  //iss data ko variable mai legenge aur object mai le lenge kyunki bad ma isko strinfiy karenge
-  let item = {name,email,mobile,userId}
-  //updated data humko mil gaya ab humko isse api mai send karna hai,par hume pata kese chelega hume ki itne sare users se hume update konsa karna hai,
-  //hume ek cheez krni padegi ki update ke click ke upar hume id bhi chiyea ek state ke andar,taki hum ek state se pata kr sake ki konsi wali id hai
-//ab hum put api ko call bhi karenge yaha se
-//or yha pr userid rhege ... kyunki userid humari state ke sath connewct hai,
-fetch(`http://localhost:8000/users/${userId}`,{
-  method: 'PUT',
-  headers:{
-    'Accept':'application/json',
-    'Content-type':'application/json'
-  },
-  // stringify ka mtlb hai ye object ko string mai convert kar dega
-  body:JSON.stringify(item)
-}).then((result)=>{
-    result.json().then((resp)=>{
-      // console.log(resp);
-      //jab humara result sucess aa jayega toh ek bar phir iss fun ko call kar denge
-      getList();
-    })
-})
 
-}
+
+
+  }
 
     return (
       <div className="App">
   
   
-        <h3>Update Data with PUT Method</h3>
+        <h3>Previous State in Functional Component  {count}</h3>
         {/* <p>hum table mai update ka button banayage or uss update ke button ke click ke upar jo form hoga nah uske andar hum data ko pre filled kar denge,update krne se phele he,or sath onload kese kr skte hai?wo bhi sikhenge</p> */}
-  
-        <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <td>Id</td>
-            <td>Name</td>
-            <td>mobile number</td>
-            <td>email</td>
-            <td>Operation</td>
-          </tr>
-          </thead>
-          <tbody>
-  {
-    users.map((item,i)=>
-  
-              <tr key={i}>
-            <td>{item.id}</td>
-            <td>{item.name}</td>
-            <td>{item.mobile}</td>
-            <td>{item.email}</td>
-            <td><button onClick={()=>deleteUser(item.id)}>Delete</button></td>
-            {/* ab button ke click ke upar bhi inn chezoon ko pre filled karwate hai */}
-            <td><button onClick={()=>selectUser(item.id)}>Update</button></td>
-          </tr>
-    )
-  }
-  </tbody>
-        </Table>
-            <div>
-            {/* apko pata hai jo humara event(e) parameter hota hai jo yha se data leke ayega  */}
-              <input type="text"  value={name} onChange={(e)=>setName(e.target.value)}/> <br /> <br />
-              <input type="text"  value={email}  onChange={(e)=>setEmail(e.target.value)}/> <br /> <br />
-              <input type="text"  value={mobile}  onChange={(e)=>setMobile(e.target.value)}/> <br /> <br />
-               <button onClick={updateUser}>Update</button>
-
-            </div>
+  {/* <p>previous state k matlab hai jo mere current state hai iss se pheli wali state= jaise mere current state hai 0 ,jb button pe click karte hai toh 9 aa jata hai .. mujhe toh pata hai ki mere previus state 0 hai pr mere program ko nhi pta merte previous kya hai!agar mere previous state 5 se kam thi ya phir 5 se zyada thi toh mai usme condition lagana chata hun.....jo mere previous thi or jo last state hi toh isme hum difference kese find kar skte hai</p> */}
+        <button onClick={updateCounter}>click me to update counter</button>
 
         </div>
         )
