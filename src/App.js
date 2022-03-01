@@ -1,43 +1,77 @@
-import "./App.css";
-import React, { useEffect, useState } from "react";
+  import "./App.css";
+  import React,{useEffect, useState} from "react";
+  import { Table } from 'react-bootstrap';
+  
+  function App() {
+  
+  const [users, setUser]=useState([])
+  
 
-function App() {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [mobile, setMobile] = useState(0)
+  
+  useEffect(()=>{
+    getList()
+  },[])
+  console.log(users);
 
-  function saveUser(){
-    console.log({name,email,mobile});
-    let data = {name,email,mobile}
-    fetch("http://localhost:8000/users", {
-      method: 'POST',
-      headers:{
-        'Accept':'application/json',
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then((result)=>{
-      // console.log(result);
+  function getList(){
+    fetch("http://localhost:8000/users").then((result)=>{
       result.json().then((resp)=>{
-        console.log("resp", resp);
+        // console.log("response",resp);
+        setUser(resp)
       })
     })
   }
 
+  function deleteUser(id){
+    fetch(`http://localhost:8000/users/${id}`,{
+      method: 'DELETE'
+    }).then((result)=>{
+        result.json().then((resp)=>{
+          console.log(resp);
+          //jab humara result sucess aa jayega toh ek bar phir iss fun ko call kar denge
+          getList();
+        })
+    })
+  }
+//for page not to refresh when delete button click - so we have to put the api in a function - getList and also call that function from use effect(ye to stating mai humari list lati hai ,wo ye kam karegi)
+  
+    return (
+      <div className="App">
+  
+  
+        <h3>Delete Data with API Call</h3>
+  
+        <Table striped bordered hover variant="dark">
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>mobile number</td>
+            <td>email</td>
+            <td>Operation</td>
+          </tr>
+          </thead>
+          <tbody>
+  {
+    users.map((item,i)=>
+  
+              <tr key={i}>
+            <td>{item.id}</td>
+            <td>{item.name}</td>
+            <td>{item.mobile}</td>
+            <td>{item.email}</td>
+            <td><button onClick={()=>deleteUser(item.id)}>Delete</button></td>
+          </tr>
+    )
+  }
+  </tbody>
+        </Table>
+  
+        </div>
+        )
+   }
 
-  return (
-    <div className="App">
-      <h1>Post method with api's</h1>
-      <input type="text" onChange={(e)=>{setName(e.target.value)}} value={name} name="name"/>
-      <br /> <br/>
-      <input type="text" onChange={(e)=>{setEmail(e.target.value)}} value={email} name="email" />
-      <br /><br/>
-      <input type="text" onChange={(e)=>{setMobile(e.target.value)}}  value={mobile} name="mobile"/>
-      <br /><br/>
-      <br /><br/>
-      <button onClick={saveUser} type="button">save new user</button>
-    </div>
-  );
-}
+
+
 
 export default App;
